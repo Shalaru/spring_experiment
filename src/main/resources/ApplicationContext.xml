@@ -8,7 +8,7 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
     <context:annotation-config />
     <aop:aspectj-autoproxy />
-    <bean class="com.spring.example.example.QuicPow"></bean>
+    <bean class="com.spring.example.example.QuickPow"></bean>
     <bean id="monitoringAspect" class="com.spring.example.monitoring.aspect.MonitoringAspect">
     </bean>
 </beans>

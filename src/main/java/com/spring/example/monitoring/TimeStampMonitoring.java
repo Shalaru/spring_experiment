@@ -8,6 +8,6 @@ import java.lang.annotation.*;
 @Target(value= ElementType.METHOD)
 @Retention(value= RetentionPolicy.RUNTIME)
 @Inherited
-public @interface SearchMonitoring {
+public @interface TimeStampMonitoring {
     SearchType value();
 }

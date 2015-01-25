@@ -1,6 +1,6 @@
 package com.spring.example.monitoring.aspect;
 
-import com.spring.example.monitoring.SearchMonitoring;
+import com.spring.example.monitoring.TimeStampMonitoring;
 import com.spring.example.monitoring.SearchType;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -22,8 +22,8 @@ import java.lang.reflect.Method;
 public class MonitoringAspect {
     private static Logger logger = LoggerFactory.getLogger(MonitoringAspect.class);
 
-    @Around("execution(* com.spring.example.example.QuicPow.*(..)) && @annotation(com.spring.example.monitoring.SearchMonitoring)")
-    public Object searchSubscriberParams(ProceedingJoinPoint pjp) throws Throwable {
+    @Around("execution(* com.spring.example.example.*.*(..)) && @annotation(com.spring.example.monitoring.TimeStampMonitoring)")
+    public Object foundAnswer(ProceedingJoinPoint pjp) throws Throwable {
         return search(pjp);
     }
 
@@ -35,21 +35,20 @@ public class MonitoringAspect {
             Method implementationMethod = ReflectionUtils.findMethod(pjp.getTarget().getClass(), interfaceMethod.getName(), interfaceMethod.getParameterTypes());
             Annotation[] annotations = implementationMethod.getAnnotations();
             for(Annotation a: annotations) {
-                if(a instanceof SearchMonitoring) {
-                    searchType = ((SearchMonitoring) a).value();
+                if(a instanceof TimeStampMonitoring) {
+                    searchType = ((TimeStampMonitoring) a).value();
                     break;
                 }
             }
         } catch(Throwable err1) {
             logger.error(err1.getMessage(), err1);
         }
-        Long start = System.currentTimeMillis();
+        Long start = System.nanoTime();
         result = pjp.proceed();
-        Long end = System.currentTimeMillis();
+        Long end = System.nanoTime();
         try {
             if(searchType != null) {
-                System.out.println("SearchType: " + searchType + ", Duration : " + (end - start));
-                //searchEventDAOService.save(new SearchEvent(searchType,  end - start));
+                System.out.println("TimeStampType: " + searchType + ", Duration : " + (end - start) + " ns");
             }
         }
         catch(Throwable err2) {
