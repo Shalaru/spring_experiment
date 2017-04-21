@@ -11,7 +11,9 @@ import java.math.BigInteger;
  * Created by Igor.Shalaru on 07.09.2014.
  */
 public class Main {
-
+	/**
+		Add comments for check submodules working
+	**/
     public static void main(String ... args){
         ApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
         QuickPow quickPow = context.getBean(QuickPow.class);
